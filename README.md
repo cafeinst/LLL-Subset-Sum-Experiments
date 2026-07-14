@@ -8,27 +8,27 @@ The program generates random subset-sum instances, embeds each instance into a l
 
 Given positive integers
 
-[
+$$
 s_1,s_2,\ldots,s_n
-]
+$$
 
-and a target integer (t), the subset-sum problem asks whether there exists a binary vector
+and a target integer $t$, the subset-sum problem asks whether there exists a binary vector
 
-[
+$$
 x=(x_1,x_2,\ldots,x_n), \qquad x_i\in{0,1},
-]
+$$
 
 such that
 
-[
+$$
 \sum_{i=1}^{n}s_i x_i=t.
-]
+$$
 
-In each experiment, the program first generates a random hidden binary vector (y) and constructs the target
+In each experiment, the program first generates a random hidden binary vector $y$ and constructs the target
 
-[
+$$
 t=\sum_{i=1}^{n}s_i y_i.
-]
+$$
 
 Thus, every generated instance is guaranteed to have at least one solution.
 
@@ -38,34 +38,44 @@ The program constructs a lattice basis associated with the subset-sum instance a
 
 For the embedding used in this program, a vector corresponding to a subset-sum solution has the form
 
-[
+$$
 \left(x_1-\frac12,\ldots,x_n-\frac12,0\right),
-]
+$$
 
-up to sign, where each (x_i) is either 0 or 1. Consequently, the first (n) coordinates are all either (+1/2) or (-1/2), while the final coordinate is zero.
+up to sign, where each $x_i$ is either 0 or 1. Consequently, the first $n$ coordinates are all either $+1/2$ or $-1/2$, while the final coordinate is zero.
 
 After LLL reduction, the program examines the reduced basis columns for vectors having this form. Every candidate is verified directly by checking whether
 
-[
+$$
 \sum_{i=1}^{n}s_i x_i=t.
-]
+$$
 
 ## What the Program Does
 
 For each randomly generated problem, the program:
 
-1. Generates (n) positive integers (s_1,\ldots,s_n).
+1. Generates $n$ positive integers $s_1,\ldots,s_n$.
+
 2. Generates a random hidden binary subset.
+
 3. Computes the corresponding target sum.
+
 4. Calculates the approximate subset-sum density
-   [
+
+   $$
    d=\frac{n}{\log_2(\max_i s_i)}.
-   ]
+   $$
+
 5. Constructs a lattice basis for the subset-sum instance.
+
 6. Applies LLL lattice basis reduction.
+
 7. Searches the reduced basis columns for an encoded subset-sum solution.
+
 8. Verifies any recovered solution directly.
+
 9. Reports whether the recovered subset is identical to the originally generated hidden subset.
+
 10. Displays an overall success rate after all experiments are complete.
 
 ## Implementation
@@ -88,7 +98,7 @@ Basis vectors are stored as **columns** of the lattice basis matrix.
 
 The implementation uses double-precision floating-point arithmetic for lattice computations and 64-bit integers for subset-sum values and indices.
 
-For simplicity and reliability in small experiments, the Gram–Schmidt data are recomputed after each modification of the lattice basis. This is slower than a highly optimized LLL implementation but makes the code easier to understand and experiment with.
+For simplicity and reliability in small experiments, the Gram–Schmidt data are recomputed after each modification of the lattice basis. This is slower than a highly optimized LLL implementation, but it makes the code easier to understand and experiment with.
 
 ## Default Parameters
 
@@ -173,6 +183,10 @@ This repository is an experimental implementation inspired by these ideas.
 
 **Craig Alan Feinstein**
 
-## License
+## License and Provenance
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This repository contains an experimental Fortran implementation of LLL lattice reduction and its application to subset-sum problems.
+
+The program was developed from an earlier Fortran LLL implementation found online and subsequently rewritten, corrected, expanded, and documented. The original online source has not yet been identified.
+
+Until the provenance and licensing terms of the earlier implementation are established, no open-source license is granted for this repository.
