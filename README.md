@@ -175,4 +175,4 @@ This repository is an experimental implementation inspired by these ideas.
 
 ## License
 
-No license has yet been specified. If you want others to be able to reuse, modify, and distribute the code, consider adding an open-source license such as the MIT License.
+This project is licensed under the MIT License. See the LICENSE file for details.
